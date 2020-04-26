@@ -34,10 +34,9 @@ class Keyboard extends React.PureComponent {
   DisplayLine1 = (props) => {
     return touches.map(
       (touch, index) =>
-        index === 13 && (<br />)
         !props.letters.has(touch) && (
           <button
-            className="touch"
+            className="btn btn-primary touch"
             key={index}
             index={index}
             onClick={() => this.props.addLetter(touch)}
@@ -50,7 +49,7 @@ class Keyboard extends React.PureComponent {
 
   render() {
     return (
-      <div className="keyboard-line">
+      <div className="keyboard-line col-md-6">
         <this.DisplayLine1
           index="{index}"
           touch="{touch}"

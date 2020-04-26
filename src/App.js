@@ -29,7 +29,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    
+
     const DisplayWord = () => (
       <div className="word">
         {this.computeDisplay(this.state.phrase, this.state.usedLetters)}
@@ -37,7 +37,7 @@ class App extends React.PureComponent {
     );
 
     return (
-      <div>
+      <div className="container-md conteneur">
         <DisplayWord
           phrase={this.state.phrase}
           usedLetters={this.state.usedLetters}

@@ -1,0 +1,9 @@
+.touch {
+    margin: 1rem;
+}
+
+.keyboard-line {
+    background-color: #0f4c75;
+    margin: 0 auto;
+    border-radius: 16px;
+}

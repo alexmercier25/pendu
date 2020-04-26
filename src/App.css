@@ -1,3 +1,14 @@
-.App {
-  background-color: black;
+.conteneur {
+  text-align: center;
+}
+
+.word {
+  margin: 3rem;
+  font-size: 2rem;
+  color: #bbe1fa;
+}
+
+#root, body, .conteneur, #conteneurBody {
+  background-color: #1b262c;
+  color: #bbe1fa;
 }
