@@ -4,13 +4,14 @@ import Keyboard from "./Keyboard";
 import Status from "./Status";
 
 import "./App.css";
+const mots = ["BONJOUR", "JULIEN", "PENDU", "BONHOMME", "MOTS", "REACT"]
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      phrase: "BONJOUR",
+      phrase: mots[Math.floor(Math.random()*mots.length)],
       usedLetters: new Set(),
       currentPhrase: "",
       won: false,
@@ -34,7 +35,7 @@ class App extends React.PureComponent {
 
   newGame() {
     this.setState({
-      phrase: "BONJOUR",
+      phrase: mots[Math.floor(Math.random()*mots.length)],
       usedLetters: new Set(),
       currentPhrase: "",
       won: false,
