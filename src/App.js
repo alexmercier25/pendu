@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Keyboard from "./Keyboard";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+
+class App extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      phrase: "BONJOUR",
+      usedLetters: new Set(),
+    };
+  }
+
+  addLetter = (letter) => {
+    this.setState({
+      usedLetters: this.state.usedLetters.add(letter),
+    });
+    this.forceUpdate();
+  };
+
+  // Produit une représentation textuelle de l’état de la partie,
+  // chaque lettre non découverte étant représentée par un _underscore_.
+  computeDisplay(phrase, usedLetters) {
+    return phrase.replace(/\w/g, (letter) =>
+      usedLetters.has(letter) ? letter + " " : "_ "
+    );
+  }
+
+  render() {
+    
+    const DisplayWord = () => (
+      <div className="word">
+        {this.computeDisplay(this.state.phrase, this.state.usedLetters)}
+      </div>
+    );
+
+    return (
+      <div>
+        <DisplayWord
+          phrase={this.state.phrase}
+          usedLetters={this.state.usedLetters}
+        />
+        <Keyboard
+          addLetter={this.addLetter.bind(this)}
+          usedLetters={this.state.usedLetters}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
