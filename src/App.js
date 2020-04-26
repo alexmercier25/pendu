@@ -1,5 +1,7 @@
 import React from "react";
+
 import Keyboard from "./Keyboard";
+import Status from "./Status";
 
 import "./App.css";
 
@@ -10,6 +12,8 @@ class App extends React.PureComponent {
     this.state = {
       phrase: "BONJOUR",
       usedLetters: new Set(),
+      currentPhrase: "",
+      won: false,
     };
   }
 
@@ -24,28 +28,55 @@ class App extends React.PureComponent {
   // chaque lettre non découverte étant représentée par un _underscore_.
   computeDisplay(phrase, usedLetters) {
     return phrase.replace(/\w/g, (letter) =>
-      usedLetters.has(letter) ? letter + " " : "_ "
+      usedLetters.has(letter) ? letter : "_"
     );
   }
 
-  render() {
+  newGame() {
+    this.setState({
+      phrase: "BONJOUR",
+      usedLetters: new Set(),
+      currentPhrase: "",
+      won: false,
+    })
+  }
 
+  render() {
     const DisplayWord = () => (
       <div className="word">
         {this.computeDisplay(this.state.phrase, this.state.usedLetters)}
       </div>
     );
 
+    this.setState({
+      currentPhrase: this.computeDisplay(
+        this.state.phrase,
+        this.state.usedLetters
+      ),
+      won: this.state.currentPhrase === this.state.phrase,
+    });
+
+    const status = this.state.won
+      ? "Vous avez gagné!"
+      : "Cliquez sur des lettres pour deviner le mot :";
+
     return (
-      <div className="container-md conteneur">
+      <div className="container-lg conteneur">
         <DisplayWord
           phrase={this.state.phrase}
           usedLetters={this.state.usedLetters}
         />
-        <Keyboard
-          addLetter={this.addLetter.bind(this)}
-          usedLetters={this.state.usedLetters}
-        />
+        <Status message={status} />
+        {!this.state.won ? (
+          <Keyboard
+            addLetter={this.addLetter.bind(this)}
+            usedLetters={this.state.usedLetters}
+          />
+        ) : (
+          <button className="btn btn-primary" onClick={() => this.newGame()}>
+            Nouvelle partie
+          </button>
+        )}
       </div>
     );
   }
